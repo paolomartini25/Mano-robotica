@@ -1,4 +1,4 @@
-// diritti riservati a Zizou.tm
+// diritti riservati a Zizou®
 
 #include <Servo.h>
 #define POTENZIOMETRO A0
@@ -15,13 +15,13 @@ Servo gomito2;
 Servo base;
 
 
-int potenziometroToangolo(int valore);
+int potenziometroToangolo(int valore); //quaesta funzione serve per trasformare il valore letto dal potenziometro in un angolo comtreso tra 0 e 179 gradi.
 
 void setup()
 {
-  pinMode(POTENZIOMETRO, INPUT);
-  pinMode(POTENZIOMETRO2, INPUT);
-  gomito1.attach( 9, 500, 2500);
+  pinMode(POTENZIOMETRO, INPUT); //imposto il pin A0 come input
+  pinMode(POTENZIOMETRO2, INPUT); //imposto il pin A1 come input
+  gomito1.attach( 9, 500, 2500); 
   gomito2.attach( 10, 500, 2500);
   base.attach( 11, 500, 2500);
   Serial.begin(9600);
@@ -30,12 +30,15 @@ void setup()
 void loop()
 {
   
-  val = analogRead(POTENZIOMETRO);
-  val2 = analogRead(POTENZIOMETRO2);
-  aGomito = potenziometroToangolo(val);
+  val = analogRead(POTENZIOMETRO); //leggo il valore della tensione sul pin A0 e lo salvo in val
+  val2 = analogRead(POTENZIOMETRO2); //leggo il valore della tensione sul pin A1 e lo salvo in val2
+  
+  aGomito = potenziometroToangolo(val); //il valore letto dal potenziometro1 viene trasformato in un angolo e salvato nella variabile aGomito
+  //gomito1 e gomito2 si muovono in seno opposto
   gomito1.write(179-aGomito);
   gomito2.write(aGomito);
-  aBase = potenziometroToangolo(val2);
+  
+  aBase = potenziometroToangolo(val2); //il valore letto dal potenziometro2 viene trasformato in un angolo e salvato nella variabile aBase
   base.write(aBase);
   
 }
